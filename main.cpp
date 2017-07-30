@@ -88,7 +88,7 @@ int main()
         while (window.pollEvent(event))
         {
             switch (event.type) {
-            
+
             case sf::Event::Closed:
                 window.close();
                 break;
@@ -100,7 +100,11 @@ int main()
                 case FIRE:
                     bullets.push_back(new Bullet(5, sf::Color::Red, character.m_orientation, character.m_position));
                     break;
+                default:
+                    break;
                 }
+                break;
+            default:
                 break;
             }
         }
@@ -108,24 +112,23 @@ int main()
         sf::Vector2f mouseOrientation(window.mapPixelToCoords(sf::Mouse::getPosition(window)) - character.m_position);
         float mouseOrientationLength = std::sqrt(mouseOrientation.x * mouseOrientation.x + mouseOrientation.y * mouseOrientation.y);
         character.m_orientation = sf::Vector2f(mouseOrientation.x / mouseOrientationLength, mouseOrientation.y / mouseOrientationLength);
-        
+
 
         if (sf::Keyboard::isKeyPressed(MOVE_LEFT)) {
-            // left key is pressed: move our character
             character.move(character.m_speed * delta * sf::Vector2f(-1, 0));
         }
         if (sf::Keyboard::isKeyPressed(MOVE_RIGHT)) {
-            // left key is pressed: move our character
             character.move(character.m_speed * delta * sf::Vector2f(1, 0));
         }
         if (sf::Keyboard::isKeyPressed(MOVE_UP)) {
-            // left key is pressed: move our character
             character.move(character.m_speed * delta * sf::Vector2f(0, -1));
         }
         if (sf::Keyboard::isKeyPressed(MOVE_DOWN)) {
-            // left key is pressed: move our character
             character.move(character.m_speed * delta * sf::Vector2f(0, 1));
         }
+        //if (sf::Keyboard::isKeyPressed(FIRE)) {
+        //    bullets.push_back(new Bullet(5, sf::Color::Red, character.m_orientation, character.m_position));
+        //}
 
         // FPS counter
         if (float elapsed = fpsClock.getElapsedTime().asSeconds() > 1) {
